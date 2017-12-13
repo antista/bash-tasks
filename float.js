@@ -140,8 +140,8 @@ function Sum(float1, float2) {
 			}
 		}
 		else {
-			var fl1 = Prepare(float2);
-			var fl2 = Prepare(float1);
+			var fl1 = Prepare(float1);
+			var fl2 = Prepare(float2);
 			var order = parseInt(float2.order, 2) -127;
 			for (var j = 0; j < parseInt(float2.order, 2) - parseInt(float1.order, 2); j++) {
 				fl1.shift();
