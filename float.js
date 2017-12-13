@@ -82,7 +82,7 @@ function ConvertToFloat(str) {
 	
 	if (str == "0" || str == "-0") //-0 и +0
 		return new FloatNumber(sign, "00000000", "00000000000000000000000");
-	else if (nInt < Math.pow(2, -126)) {
+	else if (nInt < Math.pow(2, -126)) { //Денормализованные числа
 		order = MakeOrder(-127);
 		binNFr = MakeFrPart(str);
 		binNFr.shift();
@@ -256,4 +256,3 @@ else if (WSH.Arguments(0) == "calc") {
 	WriteNumber(result);
 	CheckResult();
 }
-
