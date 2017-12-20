@@ -10,5 +10,5 @@ elif [ ! -f "$1" ]
 then
 	echo "This file does not exist"
 else
-	cat $1 | grep -E '\<(ERROR|FATAL)' | cut -d\| -f3 | cut -c 2-16 | sort -u
+	cat "$1" | grep -E '\<(ERROR|FATAL)' | cut -d\| -f3 | cut -c 2-16 | sort -u
 fi 
