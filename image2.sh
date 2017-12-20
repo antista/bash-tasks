@@ -1,22 +1,45 @@
-if [ "$1" == "-h" -o "$1" == "--help" ]
-  then
-    echo The program copies the .jpg files to a new folder and adds a signature in the lower right corner
-    echo Argument1: sourcedir
-    echo Argument2: adding word
-    echo argument3: targetdir
+#!/bin/bash
+
+if [ "$1" == "-h" ] || [ "$1" == "--help" ]
+then
+	echo "The program adds a given signature to the lower right corner for all .jpg files in given directory"
+	echo "Argument 1: the directory of inital .jpg files"
+	echo "Argument 2: the signature's text"
+	echo "Argument 3: a directory for annotated files"
+	echo "[Argument 4]: font's name"
+	echo "[Argument 5]: font's size"
 elif [ -z "$3" ]
-  then
-   echo Error, need 3 arguments
+then
+	echo "Error, need 3 arguments"
+	exit
 else
-  rm -fr $3
-  cp -r $1 $3
-  cd $3
-  for var in *\.jpg
-  do
-    name="${var%%.*}"
-    suffix="_annotated.jpg"
-    convert $var -font courier -fill white -pointsize 20 -gravity southeast -annotate 0 $2 $var
-    mv $var $name$suffix
-  done
-  cd ..
-fi
+	if [ -z "$4" ]; then 
+		font=courier
+	else 
+	font="$4"
+	fi
+	if [ -z "$5" ]; then
+		fontsize=30
+	else
+		fontsize="$5"
+	fi
+	if [ ! -d "$3" ]; then
+		outDir="$3"
+	else
+		s=1
+		while [ -d "$3_""$s" ]; do
+			let "s+=1"
+		done
+		outDir="$3_$s"
+	fi
+cp -R "$1" "$outDir"
+cd "$outDir" || exit
+for pic in *\.jpg 
+do
+	name="${pic%%.*}"
+	suf="_annotated.jpg"
+	convert "$pic" -fill yellow -font "$font" -pointsize "$fontsize" -gravity southeast  -annotate 0 "$2" "$name$suf"
+	rm "$pic" 
+done
+cd ..
+fi 
