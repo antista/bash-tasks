@@ -17,26 +17,20 @@ cleanPath=""
 IFS=":"
 for dir in $path
 do
-    check=0
     if [ -d "$dir" ]
 	then
         for file in $(find "$dir" -maxdepth 1 | tr "\\n" ":")
 		do
             if [ -f "$file" ]
 			then
-				check=1
+				if [ "$cleanPath" == "" ]; then
+					cleanPath+="$dir"
+				else
+					cleanPath+=:"$dir"
+				fi
 				break
 			fi
         done
-        if [ "$check" == 1 ]
-		then
-            if [ "$cleanPath" == "" ]
-			then
-                cleanPath="$dir"
-            else
-                cleanPath="$cleanPath":"$dir"
-            fi
-        fi
     fi
 done
 echo "$cleanPath"
