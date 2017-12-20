@@ -38,7 +38,7 @@ for pic in *\.jpg
 do
 	name="${pic%%.*}"
 	suf="_annotated.jpg"
-	convert "$pic" -fill yellow -font "$font" -pointsize "$fontsize" -gravity southeast  -annotate 0 "$2" "$name$suf"
+	convert "$pic" -fill green -font "$font" -pointsize "$fontsize" -gravity southeast  -annotate 0 "$2" "$name$suf"
 	rm "$pic" 
 done
 cd ..
