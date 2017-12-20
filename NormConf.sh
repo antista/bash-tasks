@@ -8,7 +8,7 @@ then
 	echo "Error, need an argument with file's name"
 elif [ ! -f "$1" ]
 then
-	echo "This file does not exists"
+	echo "This file does not exist"
 else 
 	cat "$1" | grep '=' | awk -F= '{switch ($2) {
 					case  /^[0-9]+s$/ : print $1"="$2*1;
